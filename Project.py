@@ -1,11 +1,11 @@
 #Final Project Assignment
 #Restaurant Reservation System
-#Group Members: Rayan Zaidi, Krish Sureshkumar Prajapati & Seyjal Kaushik Guda
+#Group Members: Rayan Zaidi & Krish Sureshkumar Prajapati
+
 #Importing certain plugins for file access and reading files
 
 import json
 import os
-import re
 
 #Part 1 of ReservationSystem
 
@@ -28,19 +28,53 @@ class ReservationSystem:
             #Otherwise return an empty list if the file doesn't exist or does not have any content in it yet.
             return[]
         
-    #This function's job is to write down information that is being inputted by the user when registering in the system and save it in the file we just created (users.json file)
+    #This function writes down information that is being inputted by the user when registering in the system and save it in the file we just created (users.json file)
     def save_users(self):
         with open(self.file_name, "w") as file:
             json.dump(self.users, file, indent=4)
     
     #This function serves as the user interface for the main menu
     #Displays the options the user has when using the ReservationSystem
+    
     def mainMenu(self):
         print("\n========== Restaurant Reservation System ==========")
         print("1. Register/Signup")
         print("2. Login")
         print("3. Exit")
         print("================================================")
+        
+    def ReservationMenu(self):
+        ReservationMenuSwitch = True
+        while ReservationMenuSwitch == True:
+            
+            print("\n======== Reservation Menu =========")
+            print("1. View Reservation")
+            print("2. Make Reservation")
+            print("3. Modify Reservation")
+            print("4. Cancel Reservation")
+            print("5. Logout")
+
+            ReservationChoice = input("Enter your choice: ")
+            if ReservationChoice == "1":
+                print ("You have selected to view your reservation")
+                
+            elif ReservationChoice == "2":
+                print("You have selected to make a reservation")
+                
+            elif ReservationChoice == "3":
+                print("You have selected to modify your reservation")
+
+            elif ReservationChoice == "4":
+                print("You have selected to cancel a reservation")
+
+            elif ReservationChoice == "5":
+                print("Logging you out...")
+                ReservationMenuSwitch = False
+                
+            else:
+                print("The choice you have selected is not valid. Try Again")
+                
+        
 
     #This function is used to check if the email is a valid email that is inputted by the user
     def email_validation(self, email):
@@ -112,13 +146,78 @@ class ReservationSystem:
         self.save_users()
         print("Your Registration Has Been Successful")
 
+    #This function is used for logging the user into the ReservationSystem   
+    def login_user(self):
+
+        #login_userswitch is used to make a while loop to determine if the user want's to still try to login into the ReservationSystem or not
+        login_userswitch = True
+
+        
+        while login_userswitch == True:
+
+            #We set this variable as false because it is going to determine whether or not if we do or do not find the email and password in our system
+            #If we don't we will prompt the user another set of options
+            userVerified = False
+
+            #We take the email and password from user as inputs and compare them to see if they match what is in our file
+    
+            emailinput = input("Enter your Email: ")
+            passwordinput = input("Enter your Password: ")
+
+            #We go through the users that is in our file by reading them one by one: self.users = load_users() to find a match
+            for user in self.users:
+                if user["email"] == emailinput and user["password"] == passwordinput:
+                        print("You are now logged into our ReservationSystem")
+                        self.ReservationMenu()
+                        userVerified = True
+                        return
+
+            #if the user does not exist or mistakenly spelt their email or password it will keep this variable as false and run these if statements   
+            if userVerified == False:
+
+                #This will give a set of options what the user can do now if they messed up their login information or if they don't have an account
+                print("The password and/or username is incorrect\n")
+                print("What do you want to do now?")
+                print("1. Try Logging in Again")
+                print("2. Register for An Account")
+                print("3. Exit")
+
+                #We will take this input as a number and do things accordingly
+                next_choice = input("Enter your choice: ")
+
+                #If they want to login again we just start from the beginning of the loop by using continue and it will again prompt the user to put in their login information
+            
+                if next_choice == "1":
+                    continue
+                #If they don't have an account they type in 2 and they trigger the register_user() function to register the user into the system and save it into our file
+                elif next_choice == "2":
+                    login_userswitch = False
+                    self.register_user()
+                    
+                #if they don't want to login again or want to register for an account they will go back to the mainMenu() where they can exit the program from there            
+                elif next_choice == "3":
+                    login_userswitch = False
+                    self.mainMenu()
+
+                #Otherwise if they type anything other than these 3 options it will read it as an invalid option and tell them to try again (heading back to the top of this while loop)        
+                else:
+                    print("Invalid Choice Try Again")
+
+
+                        
+
+            
         
             
+        
+       
+        
+        
             
 
     #This function focuses on grabbing user inputs for either signing up or logging into the ReservationSystem
     # The user can log out by pressing 3, any other input other than 1, 2 or 3 is not accepted in this program
-    def run(self):
+    def runMainMenu(self):
         onSwitch = True
         while onSwitch == True:
             self.mainMenu()
@@ -129,6 +228,7 @@ class ReservationSystem:
                 self.register_user()
             elif choiceSelect == "2":
                 print("\nLogin selected")
+                self.login_user()
             elif choiceSelect == "3":
                 print("\n Thank you for using our Reservation System")
                 onSwitch = False
@@ -157,6 +257,5 @@ class User:
             }
 
 system = ReservationSystem()
-system.run()
-
+system.runMainMenu()
 
