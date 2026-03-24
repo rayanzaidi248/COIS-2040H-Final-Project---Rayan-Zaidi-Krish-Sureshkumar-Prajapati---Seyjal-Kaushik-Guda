@@ -45,46 +45,46 @@ class ReservationSystem:
         print("================================================")
         
     def ReservationMenu(self):
-    ReservationMenuSwitch = True
-    while ReservationMenuSwitch == True:
-        try:
-            print("\n======== Reservation Menu =========")
-            print("1. View Reservation")
-            print("2. Make Reservation")
-            print("3. Modify Reservation")
-            print("4. Cancel Reservation")
-            print("5. Logout")
-
-            ReservationChoice = input("Enter your choice: ").strip()
-
-            if ReservationChoice == "1":
-                print("You have selected to view your reservation")
-                self.viewReservations(self.current_user)
-
-            elif ReservationChoice == "2":
-                print("You have selected to make a reservation")
-                self.makeReservation(self.current_user)
-
-            elif ReservationChoice == "3":
-                print("You have selected to modify your reservation")
-                self.modifyReservation(self.current_user)
-
-            elif ReservationChoice == "4":
-                print("You have selected to cancel a reservation")
-                self.cancelReservation(self.current_user)
-
-            elif ReservationChoice == "5":
-                print("Logging you out.")
-                self.current_user = None
-                ReservationMenuSwitch = False
-
-            else:
-                raise ValidationError("The choice you have selected is not valid. Try Again")
-
-        except ValidationError as e:
-            print(e)
-        except Exception as e:
-            print("An unexpected error occurred:", e)
+        ReservationMenuSwitch = True
+        while ReservationMenuSwitch == True:
+            try:
+                print("\n======== Reservation Menu =========")
+                print("1. View Reservation")
+                print("2. Make Reservation")
+                print("3. Modify Reservation")
+                print("4. Cancel Reservation")
+                print("5. Logout")
+    
+                ReservationChoice = input("Enter your choice: ").strip()
+    
+                if ReservationChoice == "1":
+                    print("You have selected to view your reservation")
+                    self.viewReservations(self.current_user)
+    
+                elif ReservationChoice == "2":
+                    print("You have selected to make a reservation")
+                    self.makeReservation(self.current_user)
+    
+                elif ReservationChoice == "3":
+                    print("You have selected to modify your reservation")
+                    self.modifyReservation(self.current_user)
+    
+                elif ReservationChoice == "4":
+                    print("You have selected to cancel a reservation")
+                    self.cancelReservation(self.current_user)
+    
+                elif ReservationChoice == "5":
+                    print("Logging you out.")
+                    self.current_user = None
+                    ReservationMenuSwitch = False
+    
+                else:
+                    raise ValidationError("The choice you have selected is not valid. Try Again")
+    
+            except ValidationError as e:
+                print(e)
+            except Exception as e:
+                print("An unexpected error occurred:", e)
                 
     #Part 4-8 of ReservationSystem
     #making a resevartion function
@@ -146,81 +146,81 @@ class ReservationSystem:
                 print(f"{i}. Days: {res['num_days']}, From: {res['from_date']}, To: {res['to_date']}, Persons: {res['num_persons']}, Rooms: {res['num_rooms']}")
     
     def modifyReservation(self, user):
-    try:
-        print("\nModify Reservation selected")
-
-        if 'reservations' not in user or not user['reservations']:
-            raise ValidationError("No reservation found.")
-
-        print("Your reservations:")
-        for i, res in enumerate(user['reservations'], 1):
-            print(f"{i}. Days: {res['num_days']}, From: {res['from_date']}, To: {res['to_date']}, Persons: {res['num_persons']}, Rooms: {res['num_rooms']}")
-
-        reservation_choice = input("Enter the number of the reservation you want to modify: ").strip()
-
-        if not reservation_choice.isdigit():
-            raise ValidationError("Please enter a valid reservation number.")
-
-        reservation_index = int(reservation_choice) - 1
-
-        if reservation_index < 0 or reservation_index >= len(user['reservations']):
-            raise ValidationError("Reservation choice is out of range.")
-
-        reservation = user['reservations'][reservation_index]
-        print("Enter new details (leave blank to keep current value):")
-
-        num_days = input(f"Number of days ({reservation['num_days']}): ") or reservation['num_days']
-        from_date = input(f"From date ({reservation['from_date']}): ") or reservation['from_date']
-        to_date = input(f"To date ({reservation['to_date']}): ") or reservation['to_date']
-        num_persons = input(f"Number of persons ({reservation['num_persons']}): ") or reservation['num_persons']
-        num_rooms = input(f"Number of rooms ({reservation['num_rooms']}): ") or reservation['num_rooms']
-
-        user['reservations'][reservation_index] = {
-            "num_days": num_days,
-            "from_date": from_date,
-            "to_date": to_date,
-            "num_persons": num_persons,
-            "num_rooms": num_rooms
-        }
-
-        self.save_users()
-        print("Reservation modified successfully!")
-
-    except ValidationError as e:
-        print(e)
-    except Exception as e:
-        print("An error occurred while modifying the reservation:", e)
+        try:
+            print("\nModify Reservation selected")
     
+            if 'reservations' not in user or not user['reservations']:
+                raise ValidationError("No reservation found.")
+    
+            print("Your reservations:")
+            for i, res in enumerate(user['reservations'], 1):
+                print(f"{i}. Days: {res['num_days']}, From: {res['from_date']}, To: {res['to_date']}, Persons: {res['num_persons']}, Rooms: {res['num_rooms']}")
+    
+            reservation_choice = input("Enter the number of the reservation you want to modify: ").strip()
+    
+            if not reservation_choice.isdigit():
+                raise ValidationError("Please enter a valid reservation number.")
+    
+            reservation_index = int(reservation_choice) - 1
+    
+            if reservation_index < 0 or reservation_index >= len(user['reservations']):
+                raise ValidationError("Reservation choice is out of range.")
+    
+            reservation = user['reservations'][reservation_index]
+            print("Enter new details (leave blank to keep current value):")
+    
+            num_days = input(f"Number of days ({reservation['num_days']}): ") or reservation['num_days']
+            from_date = input(f"From date ({reservation['from_date']}): ") or reservation['from_date']
+            to_date = input(f"To date ({reservation['to_date']}): ") or reservation['to_date']
+            num_persons = input(f"Number of persons ({reservation['num_persons']}): ") or reservation['num_persons']
+            num_rooms = input(f"Number of rooms ({reservation['num_rooms']}): ") or reservation['num_rooms']
+    
+            user['reservations'][reservation_index] = {
+                "num_days": num_days,
+                "from_date": from_date,
+                "to_date": to_date,
+                "num_persons": num_persons,
+                "num_rooms": num_rooms
+            }
+    
+            self.save_users()
+            print("Reservation modified successfully!")
+    
+        except ValidationError as e:
+            print(e)
+        except Exception as e:
+            print("An error occurred while modifying the reservation:", e)
+        
     def cancelReservation(self, user):
-    try:
-        print("\nCancel Reservation selected")
-
-        if 'reservations' not in user or not user['reservations']:
-            raise ValidationError("No reservation found.")
-
-        print("Your reservations:")
-        for i, res in enumerate(user['reservations'], 1):
-            print(f"{i}. Days: {res['num_days']}, From: {res['from_date']}, To: {res['to_date']}, Persons: {res['num_persons']}, Rooms: {res['num_rooms']}")
-
-        reservation_choice = input("Enter the number of the reservation you want to cancel: ").strip()
-
-        if not reservation_choice.isdigit():
-            raise ValidationError("Please enter a valid reservation number.")
-
-        reservation_index = int(reservation_choice) - 1
-
-        if reservation_index < 0 or reservation_index >= len(user['reservations']):
-            raise ValidationError("Reservation choice is out of range.")
-
-        del user['reservations'][reservation_index]
-        self.save_users()
-
-        print("Reservation cancelled successfully!")
-
-    except ValidationError as e:
-        print(e)
-    except Exception as e:
-        print("An error occurred while cancelling the reservation:", e)
+        try:
+            print("\nCancel Reservation selected")
+    
+            if 'reservations' not in user or not user['reservations']:
+                raise ValidationError("No reservation found.")
+    
+            print("Your reservations:")
+            for i, res in enumerate(user['reservations'], 1):
+                print(f"{i}. Days: {res['num_days']}, From: {res['from_date']}, To: {res['to_date']}, Persons: {res['num_persons']}, Rooms: {res['num_rooms']}")
+    
+            reservation_choice = input("Enter the number of the reservation you want to cancel: ").strip()
+    
+            if not reservation_choice.isdigit():
+                raise ValidationError("Please enter a valid reservation number.")
+    
+            reservation_index = int(reservation_choice) - 1
+    
+            if reservation_index < 0 or reservation_index >= len(user['reservations']):
+                raise ValidationError("Reservation choice is out of range.")
+    
+            del user['reservations'][reservation_index]
+            self.save_users()
+    
+            print("Reservation cancelled successfully!")
+    
+        except ValidationError as e:
+            print(e)
+        except Exception as e:
+            print("An error occurred while cancelling the reservation:", e)
 
     #This function is used to check if the email is a valid email that is inputted by the user
     def email_validation(self, email):
@@ -353,31 +353,31 @@ class ReservationSystem:
     #This function focuses on grabbing user inputs for either signing up or logging into the ReservationSystem
     # The user can log out by pressing 3, any other input other than 1, 2 or 3 is not accepted in this program
     def runMainMenu(self):
-    onSwitch = True
-    while onSwitch == True:
-        try:
-            self.mainMenu()
-            choiceSelect = input("Enter your choice: ").strip()
-
-            if choiceSelect == "1":
-                print("\nRegister/Signup selected")
-                self.register_user()
-
-            elif choiceSelect == "2":
-                print("\nLogin selected")
-                self.login_user()
-
-            elif choiceSelect == "3":
-                print("\nThank you for using our Reservation System")
-                onSwitch = False
-
-            else:
-                raise ValidationError("The choice you have selected is invalid. Try Again.")
-
-        except ValidationError as e:
-            print(e)
-        except Exception as e:
-            print("An unexpected error occurred:", e)
+        onSwitch = True
+        while onSwitch == True:
+            try:
+                self.mainMenu()
+                choiceSelect = input("Enter your choice: ").strip()
+    
+                if choiceSelect == "1":
+                    print("\nRegister/Signup selected")
+                    self.register_user()
+    
+                elif choiceSelect == "2":
+                    print("\nLogin selected")
+                    self.login_user()
+    
+                elif choiceSelect == "3":
+                    print("\nThank you for using our Reservation System")
+                    onSwitch = False
+    
+                else:
+                    raise ValidationError("The choice you have selected is invalid. Try Again.")
+    
+            except ValidationError as e:
+                print(e)
+            except Exception as e:
+                print("An unexpected error occurred:", e)
     
 #Part 2 Building the User (Changes are made in the ReservationSystem class)
 class User:
