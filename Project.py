@@ -329,7 +329,12 @@ class ReservationSystem:
                 print("\n Thank you for using our Reservation System")
                 onSwitch = False
             else:
-                print("The choice you have selected is invalid. Try Again.")
+                raise ValidationError("The choice you have selected is invalid. Try Again.")
+
+        except ValidationError as e:
+            print(e)
+        except Exception as e:
+            print("An unexpected error occurred:", e)
     
 #Part 2 Building the User (Changes are made in the ReservationSystem class)
 class User:
