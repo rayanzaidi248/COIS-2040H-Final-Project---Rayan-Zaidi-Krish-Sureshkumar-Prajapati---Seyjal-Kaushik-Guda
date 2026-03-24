@@ -22,5 +22,6 @@ Added exception handling to reservation menu and logout flow\
 Added exception handling for cancel reservation\
 Added exception handling for modify reservation\
 Refined login error message and clear user on logout\
+Fixed indentation and try-except structure for menu and reservation methods\
 
 ### Completed Part 10
