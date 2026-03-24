@@ -16,11 +16,11 @@ Object Oriented Programming Course Final Project
 ### Seyjal Kaushik Guda:
 
 ### Completed Part 9
-Fix reservation menu flow by removing nested menu calls
-Add exception handling for main menu choices
-Add exception handling to reservation menu and logout flow
-Add exception handling for cancel reservation
-Add exception handling for modify reservation
-Refine login error message and clear user on logout
+Fix reservation menu flow by removing nested menu calls\
+Add exception handling for main menu choices\
+Add exception handling to reservation menu and logout flow\
+Add exception handling for cancel reservation\
+Add exception handling for modify reservation\
+Refine login error message and clear user on logout\
 
 ### Completed Part 10
