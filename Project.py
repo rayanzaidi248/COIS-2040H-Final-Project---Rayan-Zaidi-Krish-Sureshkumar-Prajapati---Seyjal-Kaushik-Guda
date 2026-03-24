@@ -18,6 +18,7 @@ class ReservationSystem:
     def __init__(self):
         self.file_name = "users.json"
         self.users = self.load_users()
+        self.current_user = None
 
     #This function is used for already saved users in the ReservationSystem. It's job is to read the file containing the user's input of their email, name, password and date of birth
     def load_users(self):
@@ -60,6 +61,7 @@ class ReservationSystem:
                 
             elif ReservationChoice == "2":
                 print("You have selected to make a reservation")
+                self.makeReservation(self.current_user)
                 
             elif ReservationChoice == "3":
                 print("You have selected to modify your reservation")
@@ -168,6 +170,7 @@ class ReservationSystem:
             for user in self.users:
                 if user["email"] == emailinput and user["password"] == passwordinput:
                         print("You are now logged into our ReservationSystem")
+                        self.current_user = user
                         self.ReservationMenu()
                         userVerified = True
                         return
@@ -222,7 +225,7 @@ class ReservationSystem:
                 onSwitch = False
             else:
                 print("The choice you have selected is invalid. Try Again.")
-                
+    
 #Part 2 Building the User (Changes are made in the ReservationSystem class)
 class User:
     #When there is a user in the ReservationSystem, the user must have these properties in order to be a user in the system
@@ -246,7 +249,7 @@ class User:
     
     #Part 4 of ReservationSystem
     #making a resevartion function
-    def makeReservation(self):
+    def makeReservation(self, user):
         print("\nMake a Reservation selected")
         num_days = input("Number of days: ")
         from_date = input("From date (YYYY-MM-DD): ")
@@ -255,7 +258,28 @@ class User:
         num_rooms = input("Number of rooms: ")
         if num_days == "" or from_date == "" or to_date == "" or num_persons == "" or num_rooms == "":
             print("Please fill in all the fields.")
-        else:            
+        else:
+            # Create the reservation dictionary
+            reservation = {
+                "num_days": num_days,
+                "from_date": from_date,
+                "to_date": to_date,
+                "num_persons": num_persons,
+                "num_rooms": num_rooms
+            }
+            
+            # Add 'reservations' key if it doesn't exist
+            if 'reservations' not in user:
+                user['reservations'] = []
+            
+            # Append the new reservation
+            user['reservations'].append(reservation)
+            
+            # Save back to users.json
+            self.save_users()
+            
+            print("Reservation details saved!")
+            
             onSwitch = True
             while onSwitch == True:
                 print("\nPlease confirm your reservation details:")
@@ -269,7 +293,7 @@ class User:
                     print("Reservation confirmed!")
                     onSwitch = False
                 elif confirmation.lower() == "no" or confirmation.lower() == "n":
-                    self.makeReservation()
+                    self.makeReservation(user)
                     onSwitch = False
                 else:
                     print("Invalid input. Please enter 'yes' or 'no'.")
