@@ -77,7 +77,12 @@ class ReservationSystem:
                 ReservationMenuSwitch = False
                 
             else:
-                print("The choice you have selected is not valid. Try Again")
+                raise ValidationError("The choice you have selected is not valid. Try Again")
+
+        except ValidationError as e:
+            print(e)
+        except Exception as e:
+            print("An unexpected error occurred:", e)
                 
     #Part 4-8 of ReservationSystem
     #making a resevartion function
