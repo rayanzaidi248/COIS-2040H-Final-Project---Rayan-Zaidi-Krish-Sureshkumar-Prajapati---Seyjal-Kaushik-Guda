@@ -1,4 +1,4 @@
-# COIS-2040H-Final-Project---Rayan-Zaidi-Krish-Sureshkumar-Prajapati
+# COIS-2040H-Final-Project---Rayan-Zaidi-Krish-Sureshkumar-Prajapati-Seyjal-Kaushik-Guda
 Object Oriented Programming Course Final Project
 
 ## Credits:
