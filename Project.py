@@ -70,6 +70,7 @@ class ReservationSystem:
 
             elif ReservationChoice == "4":
                 print("You have selected to cancel a reservation")
+                self.cancelReservation(self.current_user)
 
             elif ReservationChoice == "5":
                 print("Logging you out...")
