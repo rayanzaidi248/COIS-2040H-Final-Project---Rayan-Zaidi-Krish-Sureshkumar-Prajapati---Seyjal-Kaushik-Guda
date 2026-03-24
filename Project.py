@@ -1,6 +1,6 @@
 #Final Project Assignment
 #Restaurant Reservation System
-#Group Members: Rayan Zaidi & Krish Sureshkumar Prajapati & Seyjal
+#Group Members: Rayan Zaidi & Krish Sureshkumar Prajapati & Seyjal Kaushik Guda
 
 #Importing certain plugins for file access and reading files
 
