@@ -58,6 +58,7 @@ class ReservationSystem:
             ReservationChoice = input("Enter your choice: ")
             if ReservationChoice == "1":
                 print ("You have selected to view your reservation")
+                self.viewReservations(self.current_user)
                 
             elif ReservationChoice == "2":
                 print("You have selected to make a reservation")
@@ -247,7 +248,7 @@ class User:
             "date_of_birth": self.date_of_birth
             }
     
-    #Part 4 of ReservationSystem
+    #Part 4-8 of ReservationSystem
     #making a resevartion function
     def makeReservation(self, user):
         print("\nMake a Reservation selected")
@@ -297,6 +298,15 @@ class User:
                     onSwitch = False
                 else:
                     print("Invalid input. Please enter 'yes' or 'no'.")
+
+    def viewReservations(self, user):
+        if 'reservations' not in user or not user['reservations']:
+            print("No reservations found.")
+        else:
+            print("Your reservations:")
+            for i, res in enumerate(user['reservations'], 1):
+                print(f"{i}. Days: {res['num_days']}, From: {res['from_date']}, To: {res['to_date']}, Persons: {res['num_persons']}, Rooms: {res['num_rooms']}")
+    
 
 system = ReservationSystem()
 system.runMainMenu()
