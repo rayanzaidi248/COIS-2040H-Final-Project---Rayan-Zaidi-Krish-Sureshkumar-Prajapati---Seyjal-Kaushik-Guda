@@ -6,10 +6,21 @@ Object Oriented Programming Course Final Project
 ### Rayan Zaidi:
 
 #### Completed Part 1
+Designed the main menu using print
+added functionality to register/signup
+Added functionality to saving users, loading users and adding users onto json file
+checked if emails were valid, names were valid along with their passwords
+
+
 
 #### Completed Part 2
+Added functionality to login
+checked login user details with user inputs
+ensured users are only able to make only one account with their email
 
 #### Completed Part 3
+designed reservation menu system
+added functionality to logout from once user is logged into reservationmenu
 
 ### Krish Sureshkumar Prajapati:
 
